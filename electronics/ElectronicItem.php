@@ -29,6 +29,19 @@ class ElectronicItem implements Items
 		self::ELECTRONIC_ITEM_CONTROLLER
 	); 
 
+
+	public function processElectornicItem()
+	{
+		$extras = $this->processExtas();
+		return ['extras' => $extras, 'type' => $this->type ];
+	}
+
+    public function processExtas()
+    {
+    	
+    	return ['total' => 0];
+    }
+ 
 	public function maxExtras()
 	{
 		$grant = $this->getExtraGrant();

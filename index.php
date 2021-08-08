@@ -8,16 +8,56 @@ require_once('./autoload.php');
 class ElectronicItems {
 
 	private $items = array();
+
+	private $order = array();
+
+	private $total = 0;
 	
 	public function __construct(array $items)
 	{
         $this->items = $items;
 	}
 
-	public function getSortedItems($type)  
+	public function getSortedItems()  
 	{  
-		$sorted = array(); 
+		$sorted = $this->items; 
 		return ksort($sorted, SORT_NUMERIC); 
+	}
+
+	public function processOrder()
+	{
+		$total = 0;
+		foreach($this->items as $item){
+			$newItem = $this->processItem($item);
+			$newItem['subtotal'] = ($item['qty'] * $item['price']) + $newItem['extras']['total'];
+			array_push($this->order, $newItem);
+			$this->total += $newItem['subtotal'];
+		}
+    
+        return ['order' => $this->order, 'total' => $this->total];
+
+	}
+
+	private function processItem($item)
+	{
+		$newItem = [];
+		switch($item['type']){
+			case 'console': 
+			    $orderItem= new Electronics\Console($item);
+			    $newItem = $orderItem->processElectornicItem();
+				break;
+			case 'television': 
+			    $orderItem = new Electronics\Television($item);
+			    $newItem = $orderItem->processElectornicItem();
+				break;
+			case 'microwave': 
+			    $orderItem = new Electronics\Microwave($item);
+			    $newItem = $orderItem->processElectornicItem();
+				break;
+            default:
+                return ['error' => 'item type ' . $item['type'] .' not available'];
+		}
+		return $newItem;
 	}
 
     public function getItemsByType($type)
@@ -64,4 +104,8 @@ $order = [
 
 ];
 
+// Process Order
+$processOrder = new ElectronicItems($order);
 
+
+print_r($processOrder->processOrder());
