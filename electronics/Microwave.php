@@ -5,5 +5,9 @@ namespace Electronics;
 class Microwave extends ElectronicItem 
 { 
 
-	private $extra = null;
+	public function __construct()
+	{
+        $this->setPrice(150);
+	}
+
 }

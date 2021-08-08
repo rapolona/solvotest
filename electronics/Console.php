@@ -5,5 +5,9 @@ namespace Electronics;
 class Console extends ElectronicItem 
 { 
 
-	private $extra = 4;
+	public function __construct()
+	{
+        $this->setPrice(20);
+        $this->setMaxExtra(4);
+	}
 }

@@ -5,5 +5,9 @@ namespace Electronics;
 class Television extends ElectronicItem 
 { 
 
-	private $extra = 0;
+	public function __construct()
+	{
+        $this->setPrice(200);
+        $this->setMaxExtra(0);
+	}
 }
