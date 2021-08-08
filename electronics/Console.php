@@ -5,9 +5,12 @@ namespace Electronics;
 class Console extends ElectronicItem 
 { 
 
-	public function __construct()
+	private $type = "console";
+
+	public function __construct($price)
 	{
-        $this->setPrice(20);
+        $this->setPrice($price);
+        $this->setType($this->type);
         $this->setMaxExtra(4);
 	}
 }

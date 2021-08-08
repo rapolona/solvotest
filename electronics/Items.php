@@ -5,5 +5,5 @@ namespace Electronics;
 interface Items
 {
 
-    public function maxExtras($max);
+    public function maxExtras();
 }

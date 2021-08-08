@@ -5,9 +5,12 @@ namespace Electronics;
 class Television extends ElectronicItem 
 { 
 
-	public function __construct()
+	private $type = "television";
+
+	public function __construct($price)
 	{
-        $this->setPrice(200);
+        $this->setPrice($price);
+        $this->setType($this->type);
         $this->setMaxExtra(0);
 	}
 }

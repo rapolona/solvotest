@@ -5,9 +5,12 @@ namespace Electronics;
 class Controller extends ElectronicItem 
 { 
 
-	public function __construct()
+    private $type = "controller";
+
+	public function __construct($price)
 	{
-        $this->setPrice(5);
+        $this->setPrice($price);
+        $this->setType($this->type);
 	}
 	
 }
