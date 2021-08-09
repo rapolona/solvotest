@@ -22,7 +22,7 @@ class ElectronicItem implements Items
 
 	const MSG_EXTRAS_NOT_ALLOWED = "Extra is not allowed to this item";
 
-	private static $types = array(
+	public static $types = array(
 		self::ELECTRONIC_ITEM_CONSOLE, 
 		self::ELECTRONIC_ITEM_MICROWAVE, 
 		self::ELECTRONIC_ITEM_TELEVISION,
@@ -32,15 +32,9 @@ class ElectronicItem implements Items
 
 	public function processElectornicItem()
 	{
-		$extras = $this->processExtas();
-		return ['extras' => $extras, 'type' => $this->type ];
+		$extras = $this->maxExtras();
+		return ['extras' => $extras, 'price' => $this->getPrice() ];
 	}
-
-    public function processExtas()
-    {
-    	
-    	return ['total' => 0];
-    }
  
 	public function maxExtras()
 	{
@@ -48,9 +42,11 @@ class ElectronicItem implements Items
 		if($grant){
 			$maxExtras = $this->getMaxExra();
 
-			if($this->maxExtra > 0 && $this->maxExtra > count($this->extras)){
+			if($this->maxExtra > 0 &&  count($this->extras) > $this->maxExtra ){
 				return ['message' => "You can't add more than {$this->maxExtra} to this item!", 'success' => false];
 			}
+
+			return ['success' => true];
 
 		}
 		return ['message' => self::MSG_EXTRAS_NOT_ALLOWED, 'success' => false];
@@ -58,7 +54,7 @@ class ElectronicItem implements Items
 
 	public function getExtraGrant()
 	{
-	    if($this->maxExtra==null){
+	    if($this->maxExtra===null){
 	    	return false;
 	    }	
 	    return true;
@@ -104,5 +100,14 @@ class ElectronicItem implements Items
         $this->wired = $wired;
     }
 
+    public function getExtras()
+    {
+        return $this->extras;
+    }
+
+    public function setExtras($extras)
+    {
+        $this->extras = $extras;
+    }
 
 }
