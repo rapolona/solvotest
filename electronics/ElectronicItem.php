@@ -29,13 +29,20 @@ class ElectronicItem implements Items
 		self::ELECTRONIC_ITEM_CONTROLLER
 	); 
 
-
+    /**
+	* @return array
+	* returns value for maxextra
+	* */
 	public function processElectornicItem()
 	{
 		$extras = $this->maxExtras();
 		return ['extras' => $extras, 'price' => $this->getPrice() ];
 	}
  
+    /**
+	* @return array
+	* processes maxextra
+	* */
 	public function maxExtras()
 	{
 		$grant = $this->getExtraGrant();
@@ -52,6 +59,9 @@ class ElectronicItem implements Items
 		return ['message' => self::MSG_EXTRAS_NOT_ALLOWED, 'success' => false];
 	}
 
+    /**
+	* @return boolean
+	* */
 	public function getExtraGrant()
 	{
 	    if($this->maxExtra===null){
@@ -59,6 +69,7 @@ class ElectronicItem implements Items
 	    }	
 	    return true;
 	}
+
 
 	public function getMaxExra()
 	{

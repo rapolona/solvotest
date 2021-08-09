@@ -21,17 +21,19 @@ class ElectronicItems {
 
     /**
 	* @return array
+	* returns sorted item by price desc order
 	* */
 	public function getSortedItems()  
 	{  
 		usort($this->order, function($a, $b) {
-    		return $a['subtotal'] <=> $b['subtotal'];
+    		return $a['price'] <=> $b['subtotal'];
         });
 		return ['order' => $this->order, 'total' => $this->total];
 	}
 
     /**
 	* @return array
+	* return build order with total value
 	* */
 	public function processOrder()
 	{
@@ -62,6 +64,7 @@ class ElectronicItems {
 
     /**
 	* @return array
+	* returns processed item 
 	* */
 	private function processItem($item)
 	{
@@ -91,6 +94,7 @@ class ElectronicItems {
 
     /**
 	* @return array
+	* returns selected type from the order
 	* */
     public function getItemsByType($type)
     {    
@@ -105,6 +109,7 @@ class ElectronicItems {
 
     /**
 	* @return string
+	* returns html view of ordered items
 	* */
     public function generateView($title, $order, $total)
     {
