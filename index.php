@@ -41,12 +41,19 @@ $order = [
 
 // Process Order
 $processOrder = new ElectronicItems($order);
-$processOrder->processOrder();
-$answer1 = $processOrder->getSortedItems();
-$answer2 = $processOrder->getItemsByType('console');
+$processedOrder = $processOrder->processOrder();
+if($processedOrder['success']){
+	
+	$answer1 = $processOrder->getSortedItems();
+	$answer2 = $processOrder->getItemsByType('console');
 
 
-// GENRATE VIEW
-echo $processOrder->generateView('Answer 1', $answer1['order'], $answer1['total']);
-echo "<hr />";
-echo $processOrder->generateView('Answer 2', [$answer2], $answer2['subtotal']);
+	// GENRATE VIEW
+	echo $processOrder->generateView('Answer 1', $answer1['order'], $answer1['total']);
+	echo "<hr />";
+	echo $processOrder->generateView('Answer 2', [$answer2], $answer2['subtotal']);
+}else{
+
+	echo $processedOrder['message'];
+}
+

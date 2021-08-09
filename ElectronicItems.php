@@ -40,6 +40,9 @@ class ElectronicItems {
 		$total = 0;
 		foreach($this->items as $item){
 			$processedItem = $this->processItem($item);
+			if($processedItem['extras']['success']===false){
+				return $processedItem['extras'];
+			}
 			$item['subtotal'] = ($item['qty'] * $processedItem['price']); 
 			$item['price'] = $processedItem['price'];
 			if(isset($item['extras'])){
@@ -58,7 +61,7 @@ class ElectronicItems {
 			$this->total += $item['subtotal'];
 		}
     
-        return ['order' => $this->order, 'total' => $this->total];
+        return ['order' => $this->order, 'total' => $this->total, 'success' => true];
 
 	}
 

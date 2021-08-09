@@ -49,8 +49,8 @@ class ElectronicItem implements Items
 		if($grant){
 			$maxExtras = $this->getMaxExra();
 
-			if($this->maxExtra > 0 &&  count($this->extras) > $this->maxExtra ){
-				return ['message' => "You can't add more than {$this->maxExtra} to this item!", 'success' => false];
+			if($this->maxExtra > 0 &&  $this->getTotalExtras() > $this->maxExtra ){
+				return ['message' => "You can't add more than {$this->maxExtra} to $this->type!", 'success' => false];
 			}
 
 			return ['success' => true];
@@ -119,6 +119,15 @@ class ElectronicItem implements Items
     public function setExtras($extras)
     {
         $this->extras = $extras;
+    }
+
+    public function getTotalExtras()
+    {
+        $total = 0;
+        foreach($this->extras as $extra){
+        	$total += $extra['qty'];
+        }
+        return $total;
     }
 
 }
